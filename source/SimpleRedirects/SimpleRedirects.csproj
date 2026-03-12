@@ -2,15 +2,15 @@
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
         <ContentTargetFolders>.</ContentTargetFolders>
-        <Product>SimpleRedirects</Product>
-        <PackageId>SimpleRedirects</PackageId>
-        <Title>SimpleRedirects</Title>
-        <Authors>Patrick</Authors>
+        <Product>TB.SimpleRedirects</Product>
+        <PackageId>TB.SimpleRedirects</PackageId>
+        <Title>TB.SimpleRedirects</Title>
+        <Authors>Tim</Authors>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-        <PackageProjectUrl>https://github.com/patrickdemooij9/SimpleRedirects</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/TimBoonstra/SimpleRedirects</PackageProjectUrl>
         <Description>Umbraco Redirect Manager for the Umbraco Back-Office</Description>
         <PackageTags>umbraco plugin package</PackageTags>
-        <PackageIconUrl>https://raw.githubusercontent.com/patrickdemooij9/SimpleRedirects/v9/main/package/simpleRedirectsLogo.png</PackageIconUrl>
+        <PackageIconUrl>https://raw.githubusercontent.com/TimBoonstra/SimpleRedirects/v9/main/package/simpleRedirectsLogo.png</PackageIconUrl>
         <StaticWebAssetBasePath>/</StaticWebAssetBasePath>
         <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     </PropertyGroup>

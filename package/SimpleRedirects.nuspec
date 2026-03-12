@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>SimpleRedirects</id>
-    <version>1.0.9</version>
-    <title>SimpleRedirects</title>
-    <authors>Patrick</authors>
-    <owners>Patrick</owners>
-    <projectUrl>https://github.com/patrickdemooij9/SimpleRedirects</projectUrl>
+    <id>TB.SimpleRedirects</id>
+    <version>1.1.0-alpha</version>
+    <title>TB.SimpleRedirects</title>
+    <authors>Tim</authors>
+    <owners>Tim</owners>
+    <projectUrl>https://github.com/TimBoonstra/SimpleRedirects</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
 	<icon>images\simpleRedirectsLogo.png</icon>
 	<license type="expression">Apache-2.0</license>
     <description>Umbraco Redirect Manager for the Umbraco Back-Office</description>
-    <releaseNotes>Added SimpleRedirects logo</releaseNotes>
+    <releaseNotes>Umbraco v17 support</releaseNotes>
   </metadata>
   <files>
 	<file src="..\..\package\simpleRedirectsLogo.png" target="images\"/>

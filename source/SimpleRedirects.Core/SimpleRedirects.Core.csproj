@@ -3,15 +3,15 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <ContentTargetFolders>.</ContentTargetFolders>
-    <Product>SimpleRedirects.Core</Product>
-    <PackageId>SimpleRedirects.Core</PackageId>
-    <Title>SimpleRedirects.Core</Title>
+    <Product>TB.SimpleRedirects.Core</Product>
+    <PackageId>TB.SimpleRedirects.Core</PackageId>
+    <Title>TB.SimpleRedirects.Core</Title>
     <Description>Core code for the SimpleRedirects project.</Description>
-    <Authors>Patrick</Authors>
+    <Authors>Tim</Authors>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/patrickdemooij9/SimpleRedirects</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/TimBoonstra/SimpleRedirects</PackageProjectUrl>
     <PackageTags>umbraco plugin package</PackageTags>
-    <PackageIconUrl>https://raw.githubusercontent.com/patrickdemooij9/SimpleRedirects/v9/main/package/simpleRedirectsLogo.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/TimBoonstra/SimpleRedirects/v9/main/package/simpleRedirectsLogo.png</PackageIconUrl>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="33.1.0" />
