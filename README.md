@@ -11,7 +11,7 @@ Integrates directly with the Umbraco Content Pipeline, inserting itself in the f
 
 ### Getting Started ###
 
-Nuget Package: ` Install-Package SimpleRedirects `
+Nuget Package: ` Install-Package TB.SimpleRedirects `
 
 ### Configuration ###
 You are able to change the configuration in your appsettings.json. By default the configuration is as follows:
@@ -47,7 +47,7 @@ Use the provided actions in the Action column to Add, Update & Delete existing r
 
 ![Add, Update & Delete][crudImage]
 
-__Support:__ [Documentation Wiki](https://github.com/patrickdemooij9/SimpleRedirects/wiki), [Issue Logging](https://github.com/patrickdemooij9/SimpleRedirects/issues)
+__Support:__ [Documentation Wiki](https://github.com/TimBoonstra/SimpleRedirects/wiki), [Issue Logging](https://github.com/TimBoonstra/SimpleRedirects/issues)
 
 [ngTableLink]: https://github.com/esvit/ng-table
 [highlightJsLink]: https://github.com/isagalaev/highlight.js
