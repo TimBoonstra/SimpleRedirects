@@ -1,4 +1,3 @@
-using System.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +10,6 @@ using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Routing;
 using Umbraco.Cms.Web.Common.ApplicationBuilder;
-using Umbraco.Extensions;
 
 namespace SimpleRedirects.Core
 {
@@ -19,7 +17,6 @@ namespace SimpleRedirects.Core
     {
         public void Compose(IUmbracoBuilder builder)
         {
-            builder.Dashboards().Add<RedirectDashboard>();
             builder.Components().Append<DatabaseUpgradeComponent>();
 
             builder.Services.AddSingleton<RedirectRepository>();

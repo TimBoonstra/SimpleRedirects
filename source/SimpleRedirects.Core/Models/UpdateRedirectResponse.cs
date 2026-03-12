@@ -1,11 +1,10 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace SimpleRedirects.Core.Models
 {
     public class UpdateRedirectResponse : BaseResponse
     {
-        [JsonProperty("updatedRedirect")]
+        [JsonPropertyName("updatedRedirect")]
         public Redirect UpdatedRedirect { get; set; }
     }
 }

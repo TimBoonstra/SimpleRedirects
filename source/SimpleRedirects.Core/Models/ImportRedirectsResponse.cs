@@ -1,21 +1,21 @@
-﻿using System;
+using System;
 using System.Linq;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace SimpleRedirects.Core.Models;
 
 public class ImportRedirectsResponse : BaseResponse
 {
-    [JsonProperty("addedRedirects")]
+    [JsonPropertyName("addedRedirects")]
     public int AddedRedirects { get; set; }
 
-    [JsonProperty("updatedRedirects")]
+    [JsonPropertyName("updatedRedirects")]
     public int UpdatedRedirects { get; set; }
 
-    [JsonProperty("existingRedirects")]
+    [JsonPropertyName("existingRedirects")]
     public int ExistingRedirects { get; set; }
 
-    [JsonProperty("errorRedirects")]
+    [JsonPropertyName("errorRedirects")]
     public Redirect[] ErrorRedirects { get; set; }
 
     public static ImportRedirectsResponse FromImport(int addedRedirects, int updatedRedirects, int existingRedirects, Redirect[] errorRedirects)

@@ -1,23 +1,22 @@
-using Microsoft.Extensions.Logging;
 using SimpleRedirects.Core.Migrations;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.Migrations;
+using Umbraco.Cms.Core.Scoping;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Infrastructure.Migrations;
 using Umbraco.Cms.Infrastructure.Migrations.Upgrade;
-using Umbraco.Cms.Infrastructure.Scoping;
 
 namespace SimpleRedirects.Core.Components
 {
-    public class DatabaseUpgradeComponent : IComponent
+    public class DatabaseUpgradeComponent : IAsyncComponent
     {
-        private readonly IScopeProvider _scopeProvider;
+        private readonly ICoreScopeProvider _scopeProvider;
         private readonly IKeyValueService _keyValueService;
         private readonly IRuntimeState _runtimeState;
         private readonly IMigrationPlanExecutor _migrationPlanExecutor;
 
-        public DatabaseUpgradeComponent(IMigrationPlanExecutor migrationPlanExecutor, IScopeProvider scopeProvider, IKeyValueService keyValueService, IRuntimeState runtimeState)
+        public DatabaseUpgradeComponent(IMigrationPlanExecutor migrationPlanExecutor, ICoreScopeProvider scopeProvider, IKeyValueService keyValueService, IRuntimeState runtimeState)
         {
             _migrationPlanExecutor = migrationPlanExecutor;
             _scopeProvider = scopeProvider;
@@ -25,7 +24,7 @@ namespace SimpleRedirects.Core.Components
             _runtimeState = runtimeState;
         }
 
-        public void Initialize()
+        public async Task InitializeAsync(bool isRestarting, CancellationToken cancellationToken)
         {
             if (_runtimeState.Level != RuntimeLevel.Run) return;
 
@@ -37,12 +36,12 @@ namespace SimpleRedirects.Core.Components
                 .To<TrimOldUrlMigration>("state-4");
 
             var upgrader = new Upgrader(plan);
-            upgrader.Execute(_migrationPlanExecutor, _scopeProvider, _keyValueService);
+            await upgrader.ExecuteAsync(_migrationPlanExecutor, _scopeProvider, _keyValueService);
         }
 
-        public void Terminate()
+        public Task TerminateAsync(bool isRestarting, CancellationToken cancellationToken)
         {
-
+            return Task.CompletedTask;
         }
     }
 }

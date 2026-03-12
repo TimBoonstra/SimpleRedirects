@@ -5,13 +5,13 @@ using Umbraco.Extensions;
 
 namespace SimpleRedirects.Core.Migrations
 {
-    public class TrimOldUrlMigration : MigrationBase
+    public class TrimOldUrlMigration : AsyncMigrationBase
     {
         public TrimOldUrlMigration(IMigrationContext context) : base(context)
         {
         }
 
-        protected override void Migrate()
+        protected override async Task MigrateAsync()
         {
             if (!TableExists("Redirects")) return;
 

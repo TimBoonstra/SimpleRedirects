@@ -1,0 +1,24 @@
+{
+  "name": "SimpleRedirects",
+  "version": "17.0.0",
+  "extensions": [
+    {
+      "type": "dashboard",
+      "alias": "SimpleRedirects.Dashboard",
+      "name": "Simple Redirects Dashboard",
+      "element": "/App_Plugins/SimpleRedirects/simple-redirects.js",
+      "elementName": "simple-redirects-dashboard",
+      "weight": 0,  
+      "meta": {
+        "label": "Manage Redirects",
+        "pathname": "simple-redirects"
+      },
+      "conditions": [
+        {
+          "alias": "Umb.Condition.SectionAlias",
+          "match": "Umb.Section.Content"
+        }
+      ]
+    }
+  ]
+}

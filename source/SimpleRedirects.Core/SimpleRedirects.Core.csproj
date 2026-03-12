@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
     <ContentTargetFolders>.</ContentTargetFolders>
     <Product>SimpleRedirects.Core</Product>
     <PackageId>SimpleRedirects.Core</PackageId>
@@ -13,9 +14,9 @@
     <PackageIconUrl>https://raw.githubusercontent.com/patrickdemooij9/SimpleRedirects/v9/main/package/simpleRedirectsLogo.png</PackageIconUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CsvHelper" Version="27.2.1" />
-    <PackageReference Include="CsvHelper.Excel.Core" Version="27.2.1" />
-    <PackageReference Include="Umbraco.Cms.Web.Website" Version="11.0.0" />
-    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="11.0.0" />
+    <PackageReference Include="CsvHelper" Version="33.1.0" />
+    <PackageReference Include="ClosedXML" Version="0.104.2" />
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="17.0.0" />
+    <PackageReference Include="Umbraco.Cms.Api.Management" Version="17.0.0" />
   </ItemGroup>
 </Project>

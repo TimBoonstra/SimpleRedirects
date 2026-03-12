@@ -1,18 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SimpleRedirects.Core.Enums;
 using SimpleRedirects.Core.Extensions;
 using SimpleRedirects.Core.Models;
 using SimpleRedirects.Core.Services;
-using Umbraco.Cms.Web.BackOffice.Controllers;
-using Umbraco.Cms.Web.Common.Attributes;
+using Umbraco.Cms.Api.Management.Controllers;
+using Umbraco.Cms.Api.Management.Routing;
 
 namespace SimpleRedirects.Core
 {
-    [PluginController("SimpleRedirects")]
-    public class RedirectApiController : UmbracoAuthorizedApiController
+    [VersionedApiBackOfficeRoute("simple-redirects")]
+    [ApiExplorerSettings(GroupName = "Simple Redirects API")]
+    public class RedirectApiController : ManagementApiControllerBase
     {
         private readonly RedirectRepository _redirectRepository;
         private readonly ImportExportFactory _importExportFactory;
@@ -23,144 +25,120 @@ namespace SimpleRedirects.Core
             _importExportFactory = importExportFactory;
         }
 
-        /// <summary>
-        /// GET all redirects
-        /// </summary>
-        /// <returns>Collection of all redirects</returns>
-        [HttpGet]
-        public IEnumerable<Redirect> GetAll()
+        [HttpGet("redirects")]
+        [ProducesResponseType<IEnumerable<Redirect>>(StatusCodes.Status200OK)]
+        public IActionResult GetAll()
         {
-            return _redirectRepository.GetAllRedirects();
+            return Ok(_redirectRepository.GetAllRedirects());
         }
 
-        /// <summary>
-        /// POST to add a new redirect
-        /// </summary>
-        /// <param name="request">Add redirect request</param>
-        /// <returns>Response object detailing success or failure </returns>
-        [HttpPost]
-        public AddRedirectResponse Add(AddRedirectRequest request)
+        [HttpPost("redirect")]
+        [ProducesResponseType<AddRedirectResponse>(StatusCodes.Status200OK)]
+        public IActionResult Add([FromBody] AddRedirectRequest request)
         {
-            if (request == null) return new AddRedirectResponse() { Success = false, Message = "Request was empty" };
+            if (request == null) return Ok(new AddRedirectResponse() { Success = false, Message = "Request was empty" });
             if (!ModelState.IsValid)
-                return new AddRedirectResponse() { Success = false, Message = "Missing required attributes" };
+                return Ok(new AddRedirectResponse() { Success = false, Message = "Missing required attributes" });
 
             try
             {
                 var redirect = _redirectRepository.AddRedirect(request.IsRegex, request.OldUrl, request.NewUrl,
                     request.RedirectCode, request.Notes);
-                return new AddRedirectResponse() { Success = true, NewRedirect = redirect };
+                return Ok(new AddRedirectResponse() { Success = true, NewRedirect = redirect });
             }
             catch (Exception e)
             {
-                return new AddRedirectResponse()
-                    { Success = false, Message = "There was an error adding the redirect : " + e.Message };
+                return Ok(new AddRedirectResponse()
+                    { Success = false, Message = "There was an error adding the redirect : " + e.Message });
             }
         }
 
-        /// <summary>
-        /// POST to update a redirect
-        /// </summary>
-        /// <param name="request">Update redirect request</param>
-        /// <returns>Response object detailing success or failure</returns>
-        [HttpPost]
-        public UpdateRedirectResponse Update(UpdateRedirectRequest request)
+        [HttpPut("redirect")]
+        [ProducesResponseType<UpdateRedirectResponse>(StatusCodes.Status200OK)]
+        public IActionResult Update([FromBody] UpdateRedirectRequest request)
         {
-            if (request == null) return new UpdateRedirectResponse() { Success = false, Message = "Request was empty" };
+            if (request == null) return Ok(new UpdateRedirectResponse() { Success = false, Message = "Request was empty" });
             if (!ModelState.IsValid)
-                return new UpdateRedirectResponse() { Success = false, Message = "Missing required attributes" };
+                return Ok(new UpdateRedirectResponse() { Success = false, Message = "Missing required attributes" });
 
             try
             {
                 var redirect = _redirectRepository.UpdateRedirect(request.Redirect);
-                return new UpdateRedirectResponse() { Success = true, UpdatedRedirect = redirect };
+                return Ok(new UpdateRedirectResponse() { Success = true, UpdatedRedirect = redirect });
             }
             catch (Exception e)
             {
-                return new UpdateRedirectResponse()
-                    { Success = false, Message = "There was an error updating the redirect : " + e.Message };
+                return Ok(new UpdateRedirectResponse()
+                    { Success = false, Message = "There was an error updating the redirect : " + e.Message });
             }
         }
 
-        /// <summary>
-        /// DELETE to delete a redirect
-        /// </summary>
-        /// <param name="id">Id of redirect to delete</param>
-        /// <returns>Response object detailing success or failure</returns>
-        [HttpDelete]
-        public DeleteRedirectResponse Delete(int id)
+        [HttpDelete("redirect/{id:int}")]
+        [ProducesResponseType<DeleteRedirectResponse>(StatusCodes.Status200OK)]
+        public IActionResult Delete(int id)
         {
             if (id == 0)
-                return new DeleteRedirectResponse()
-                    { Success = false, Message = "Invalid ID passed for redirect to delete" };
+                return Ok(new DeleteRedirectResponse()
+                    { Success = false, Message = "Invalid ID passed for redirect to delete" });
 
             try
             {
                 _redirectRepository.DeleteRedirect(id);
-                return new DeleteRedirectResponse() { Success = true };
+                return Ok(new DeleteRedirectResponse() { Success = true });
             }
             catch (Exception e)
             {
-                return new DeleteRedirectResponse()
-                    { Success = false, Message = "There was an error deleting the redirect : " + e.Message };
+                return Ok(new DeleteRedirectResponse()
+                    { Success = false, Message = "There was an error deleting the redirect : " + e.Message });
             }
         }
 
-        /// <summary>
-        /// DELETE to delete all redirects
-        /// </summary>
-        /// <returns>Response object detailing success or failure</returns>
-        [HttpDelete]
-        public DeleteRedirectResponse DeleteAll()
+        [HttpDelete("redirects")]
+        [ProducesResponseType<DeleteRedirectResponse>(StatusCodes.Status200OK)]
+        public IActionResult DeleteAll()
         {
             try
             {
                 _redirectRepository.DeleteAllRedirects();
-                return new DeleteRedirectResponse() { Success = true };
+                return Ok(new DeleteRedirectResponse() { Success = true });
             }
             catch (Exception e)
             {
-                return new DeleteRedirectResponse()
-                    { Success = false, Message = "There was an error deleting the redirects : " + e.Message };
+                return Ok(new DeleteRedirectResponse()
+                    { Success = false, Message = "There was an error deleting the redirects : " + e.Message });
             }
         }
 
-        /// <summary>
-        /// POST to clear cache
-        /// </summary>
-        [HttpPost]
-        public void ClearCache()
+        [HttpPost("cache/clear")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult ClearCache()
         {
             _redirectRepository.ClearCache();
+            return Ok();
         }
 
-        /// <summary>
-        /// GET to export simple redirects to CSV
-        /// </summary>
-        [HttpGet]
-        public ActionResult ExportRedirects(DataRecordProvider dataRecordProvider)
+        [HttpGet("redirects/export")]
+        public IActionResult ExportRedirects([FromQuery] DataRecordProvider dataRecordProvider)
         {
             var dataRecordCollectionFile = _importExportFactory.GetDataRecordProvider(dataRecordProvider)
                 .ExportDataRecordCollection();
 
-            return dataRecordCollectionFile.AsFileContentResult();
+            return File(dataRecordCollectionFile.File, dataRecordCollectionFile.ContentType, dataRecordCollectionFile.FileName);
         }
 
-        /// <summary>
-        /// Import redirects from CSV
-        /// </summary>
-        [HttpPost]
-        public ImportRedirectsResponse ImportRedirects(bool overwriteMatches)
+        [HttpPost("redirects/import")]
+        [ProducesResponseType<ImportRedirectsResponse>(StatusCodes.Status200OK)]
+        public IActionResult ImportRedirects([FromQuery] bool overwriteMatches)
         {
             var file = HttpContext.Request.Form.Files.Any() ? HttpContext.Request.Form.Files[0] : null;
-            if (file is null) return ImportRedirectsResponse.EmptyImportRecordResponse();
+            if (file is null) return Ok(ImportRedirectsResponse.EmptyImportRecordResponse());
             if (!file.CanGetDataRecordProviderFromFile(out var provider))
-                return ImportRedirectsResponse.EmptyImportRecordResponse(
-                    "No redirects imported, provided file is not supported by the import process. Please provide a .csv or .xlsx file.");
+                return Ok(ImportRedirectsResponse.EmptyImportRecordResponse(
+                    "No redirects imported, provided file is not supported by the import process. Please provide a .csv or .xlsx file."));
 
             var response = _importExportFactory.GetDataRecordProvider(provider)
                 .ImportRedirectsFromCollection(file, overwriteMatches);
-            return response;
+            return Ok(response);
         }
     }
 }

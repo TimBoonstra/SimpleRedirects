@@ -1,9 +1,7 @@
 # SimpleRedirects
-### Simple Redirect Manager for Umbraco 8/9 ###
+### Simple Redirect Manager for Umbraco 17 ###
 
-This project is a fork of the original Simple301 version: https://github.com/wkallhof/Simple301
-
-[![Build status](https://ci.appveyor.com/api/projects/status/j2ea8715x1ax8u9m/branch/master?svg=true)](https://ci.appveyor.com/project/patrickdemooij9/simpleredirects/branch/master)
+This project is a fork of the SimpleRedirects v8/9 version: https://github.com/patrickdemooij9/SimpleRedirects
 
 Simple Redirects Manager is a simple to use, yet extensible, Umbraco Back-Office package that allows you to manage your 301 redirects directly in Umbraco. Includes a simple and intuitive refinement system where you can search for specific text within the URLs or notes defined for the redirect. 
 

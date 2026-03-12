@@ -1,10 +1,9 @@
 using System;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Web;
 using CsvHelper.Configuration.Attributes;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using NPoco;
 using Umbraco.Cms.Infrastructure.Persistence.DatabaseAnnotations;
 
@@ -17,35 +16,35 @@ namespace SimpleRedirects.Core.Models
     {
         [Column("Id")]
         [PrimaryKeyColumn(AutoIncrement = true)]
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public int Id { get; set; }
 
         [Column("IsRegex")]
-        [JsonProperty("isRegex")]
+        [JsonPropertyName("isRegex")]
         [Default("False")]
         public bool IsRegex { get; set; }
 
         [Column("OldUrl")]
-        [JsonProperty("oldUrl")]
+        [JsonPropertyName("oldUrl")]
         public string OldUrl { get; set; }
 
         [Column("NewUrl")]
-        [JsonProperty("newUrl")]
+        [JsonPropertyName("newUrl")]
         [Default("")]
         public string NewUrl { get; set; }
 
         [Column("RedirectCode")]
-        [JsonProperty("redirectCode")]
+        [JsonPropertyName("redirectCode")]
         [Default(301)]
         public int RedirectCode { get; set; }
 
         [Column("LastUpdated")]
-        [JsonProperty("lastUpdated")]
+        [JsonPropertyName("lastUpdated")]
         [Default("")]
         public DateTime? LastUpdated { get; set; }
 
         [Column("Notes")]
-        [JsonProperty("notes")]
+        [JsonPropertyName("notes")]
         [Default("")]
         public string Notes { get; set; }
 

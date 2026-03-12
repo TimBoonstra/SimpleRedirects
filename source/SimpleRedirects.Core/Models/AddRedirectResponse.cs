@@ -1,10 +1,10 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace SimpleRedirects.Core.Models
 {
     public class AddRedirectResponse : BaseResponse
     {
-        [JsonProperty("newRedirect")]
+        [JsonPropertyName("newRedirect")]
         public Redirect NewRedirect { get; set; }
     }
 }

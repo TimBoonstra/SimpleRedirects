@@ -1,6 +1,6 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <ContentTargetFolders>.</ContentTargetFolders>
         <Product>SimpleRedirects</Product>
         <PackageId>SimpleRedirects</PackageId>
@@ -11,11 +11,12 @@
         <Description>Umbraco Redirect Manager for the Umbraco Back-Office</Description>
         <PackageTags>umbraco plugin package</PackageTags>
         <PackageIconUrl>https://raw.githubusercontent.com/patrickdemooij9/SimpleRedirects/v9/main/package/simpleRedirectsLogo.png</PackageIconUrl>
+        <StaticWebAssetBasePath>/</StaticWebAssetBasePath>
+        <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Umbraco.Cms.Web.Website" Version="11.0.0" />
-        <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="11.0.0" />
+        <PackageReference Include="Umbraco.Cms.Web.Website" Version="17.0.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -23,13 +24,18 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="App_Plugins\SimpleRedirects\**\*.*">
-            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-        </Content>
         <None Include="build\**\*.*">
             <Pack>True</Pack>
             <PackagePath>build</PackagePath>
         </None>
     </ItemGroup>
+
+    <!-- Build the frontend client automatically -->
+    <Target Name="NpmInstall" BeforeTargets="BeforeBuild" Inputs="Client/package.json" Outputs="Client/node_modules/.package-lock.json">
+        <Exec Command="npm ci --prefer-offline" WorkingDirectory="Client" />
+    </Target>
+
+    <Target Name="NpmBuild" BeforeTargets="BeforeBuild" DependsOnTargets="NpmInstall" Inputs="Client/src/**/*;Client/package.json;Client/tsconfig.json;Client/vite.config.ts" Outputs="wwwroot/App_Plugins/SimpleRedirects/simple-redirects.js">
+        <Exec Command="npm run build" WorkingDirectory="Client" />
+    </Target>
 </Project>

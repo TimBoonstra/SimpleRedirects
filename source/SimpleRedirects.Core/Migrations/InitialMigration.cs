@@ -3,13 +3,13 @@ using Umbraco.Cms.Infrastructure.Migrations;
 
 namespace SimpleRedirects.Core.Migrations
 {
-    public class InitialMigration : MigrationBase
+    public class InitialMigration : AsyncMigrationBase
     {
         public InitialMigration(IMigrationContext context) : base(context)
         {
         }
 
-        protected override void Migrate()
+        protected override async Task MigrateAsync()
         {
             if (!TableExists("Redirects"))
             {
